@@ -1,0 +1,48 @@
+﻿@model List<BetterCalendar.Models.EventViewModel>
+@{
+    ViewData["Title"] = "AllEvents";
+}
+
+
+
+@if (Model.Count > 0)
+{
+    <h2 class="header">Wszystkie wydarzenia</h2>
+    <div class="events">
+        @foreach (var item in Model)
+        {
+
+            <div class="event">
+                <div class="event-header">
+                    <div class="date">
+                        <p class="date-highlight">@item.Start.ToString("dd")<span>.</span>@item.Start.ToString("MM")</p>
+                            <small>@item.Start.ToString("HH:mm")</small>
+                            @if (item.End != null)
+                            {
+                                <span> - </span> @Convert.ToDateTime(item.End).ToString("HH:mm")
+                            }
+                    </div>
+                    <div class="event-title">
+                        <p>@item.Title</p>
+                    </div>
+                    <div class="delete-button">@Html.ActionLink("Usuń", "Delete", "Home", new { eventId = item.Id, returnUrl = "/all-events" })</div>
+                </div>
+                @if (item.Description != null)
+                {
+                    <div class="description">
+                        <p>@item.Description</p>
+                    </div>
+                }
+
+            </div>
+        }
+    </div>
+}
+
+else
+{
+    <h2>Nie masz żadnych wydarzeń</h2>
+
+
+
+}

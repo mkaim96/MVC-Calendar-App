@@ -1,0 +1,93 @@
+﻿@model BetterCalendar.Models.MonthViewModel
+
+
+
+
+
+
+    
+<h1></h1>
+<div id="calendar">
+
+    <div class="calendar-header">
+        <!-- <p><a href="@Url.Action("PrevMonth", new { date = Model.Date })">&larr; @Model.PrevMonthName</a></p>-->
+
+
+        <p><a asp-action="PrevMonth" asp-controller="Home" asp-route-date="@Model.Date">&larr; @Model.PrevMonthName</a></p>
+
+        <p class="current-month">@Model.MonthName @Model.Date.Year</p>
+        <p><a href="@Url.Action("NextMonth", new { date = Model.Date })"> @Model.NextMonthName &rarr;</a></p>
+    </div>
+
+    <div class="day-label">
+        <p>P</p>
+    </div>
+
+    <div class="day-label">
+        <p>W</p>
+    </div>
+
+    <div class="day-label">
+        <p>Ś</p>
+    </div>
+
+    <div class="day-label">
+        <p>C</p>
+    </div>
+
+    <div class="day-label">
+        <p>P</p>
+    </div>
+
+    <div class="day-label">
+        <p>S</p>
+    </div>
+
+    <div class="day-label">
+        <p>N</p>
+    </div>
+
+
+
+    @* render empty squares in first week*@
+    @for (int i = 1; i <= Model.DaysToSkipInFirstWeek; i++)
+    {
+        <div class="blank-square"></div>
+
+    }
+
+    @* render days*@
+    @foreach (var day in Model.Days)
+    {
+
+
+        @if (day.FullDate.ToShortDateString() == DateTime.Now.ToShortDateString())
+        {
+            <a href="@Url.Action("day", new { date = day.FullDate.ToString("MM-dd-yyyy")})">
+                <div class="day-square ">
+                    <p style="color: #FF5252">@day.DayNumber</p>
+                    @if (day.HasEvents)
+                    {<div class="bullet"></div>}
+                </div>
+            </a>
+
+        }
+
+        else
+        {
+            <a href="@Url.Action("day", new { date = day.FullDate.ToString("MM-dd-yyyy")})">
+                <div class="day-square">
+                    <p>@day.DayNumber</p>
+                    @if (day.HasEvents)
+                    {<div class="bullet"></div>}
+                </div>
+            </a>
+
+        }
+
+
+
+
+
+    }
+</div>

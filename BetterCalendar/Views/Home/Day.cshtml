@@ -1,0 +1,55 @@
+﻿@model BetterCalendar.Models.DayViewModel
+@{
+    ViewData["Title"] = "Day";
+}
+
+<div class="big-date">
+    <h2>@Model.DayName,</h2>
+    <h4>@Model.DayNumber @Model.MonthNameDop</h4>
+</div>
+
+@Html.ActionLink("Dodaj wydarzenie", "CreateEvent", "Home", null, new { @class = "button" })
+
+@if (Model.Events.Count > 0)
+{
+    <div class="events">
+        @foreach (var item in Model.Events)
+        {
+
+            <div class="event">
+                <div class="event-header">
+                    <div class="date" style="display: flex; align-items: center;">
+
+                        <h5 class="text-muted">
+                            @item.Start.ToString("HH:mm")
+                            @if (item.End != null)
+                            {
+                                <span> - </span> @Convert.ToDateTime(item.End).ToString("HH:mm")
+                            }
+                        </h5>
+                    </div>
+                    <div class="event-title">
+                        <p>@item.Title</p>
+                    </div>
+                    <div class="delete-button">@Html.ActionLink("Usuń", "Delete", "Home", new { eventId = item.Id, returnUrl = $"/day/{Model.FullDate.ToString("MM-dd-yyyy")}" })</div>
+                </div>
+                @if (item.Description != null)
+                {
+                    <div class="description">
+                        <p>@item.Description</p>
+                    </div>
+                }
+
+            </div>
+        }
+    </div>
+}
+
+else
+{
+    <h2>Nie masz żadnych wydarzeń na ten dzień</h2>
+
+
+
+}
+

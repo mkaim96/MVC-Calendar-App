@@ -1,0 +1,23 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@using BetterCalendar.Data  
+
+@inject SignInManager<ApplicationUser> signInManager
+@inject UserManager<ApplicationUser> userManager
+
+@if(signInManager.IsSignedIn(User))
+{
+    <ul>
+        <li>@Html.ActionLink("Wyloguj", "Logout", "Account")</li>
+    </ul>
+    
+
+}
+
+else
+{
+    <ul>
+        <li>@Html.ActionLink("Zaloguj się", "Login", "Account")</li>
+        <li>@Html.ActionLink("Zarejestruj się", "Register", "Account")</li>
+    </ul>
+
+}

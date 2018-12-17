@@ -1,0 +1,9 @@
+﻿<nav>
+    <ul>
+        <li>
+            @Html.ActionLink("Kalendarz", "Index", "Home", null, new { @class = "logo" })
+            @Html.ActionLink("Wszystkie wydarzenia", "AllEvents", "Home", null, new { @class = ""})
+        </li>
+    </ul>
+    @Html.Partial("_login")
+</nav>
