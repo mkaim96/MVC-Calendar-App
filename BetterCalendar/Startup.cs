@@ -35,8 +35,6 @@ namespace BetterCalendar
                     options.UseSqlServer(Configuration.GetConnectionString("BetterCalendar_Dev")));
 
             services.AddSingleton(Configuration);
-            services.AddSingleton<TokenManager>();
-            services.AddTransient<TokenMiddleware>();
             services.AddTransient<EventsService>();
             services.AddMemoryCache();
             services.AddCors();
@@ -97,13 +95,6 @@ namespace BetterCalendar
         {
             app.UseAuthentication();
 
-            // use TokenMiddleware only for requests to urls that starts with /api
-            // this middleware checks if token is cancelled
-            app.UseWhen(context => context.Request.Path.StartsWithSegments("/api"), appBuilder =>
-            {
-                appBuilder.UseMiddleware<TokenMiddleware>();
-            });
-
             app.UseCors(options =>
                     options.WithOrigins("http://localhost:51164").AllowAnyMethod()
                 );
@@ -119,11 +110,6 @@ namespace BetterCalendar
             }
 
             app.UseStaticFiles();
-
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "VueApp", "dist"))
-            });
 
             app.UseMvc(routes =>
             {
