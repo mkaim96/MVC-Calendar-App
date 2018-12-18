@@ -8,48 +8,45 @@
     <h4>@Model.DayNumber @Model.MonthNameDop</h4>
 </div>
 
-@Html.ActionLink("Dodaj wydarzenie", "CreateEvent", "Home", null, new { @class = "button" })
+<form asp-action="CreateEvent" asp-controller="Home" method="post">
+    @Html.AntiForgeryToken()
+    <div class="form-wrapper">
+        <div class="form-group">
+            <input asp-for="@Model.newEvent.Title" placeholder="Dodaj tytuł" class="input" />
+        </div>
+        <div class="form-group">
+            <input asp-for="@Model.newEvent.Title" placeholder="Opis (opcjonalnie)" class="input" />
+        </div>
 
-@if (Model.Events.Count > 0)
-{
-    <div class="events">
-        @foreach (var item in Model.Events)
-        {
-
-            <div class="event">
-                <div class="event-header">
-                    <div class="date" style="display: flex; align-items: center;">
-
-                        <h5 class="text-muted">
-                            @item.Start.ToString("HH:mm")
-                            @if (item.End != null)
-                            {
-                                <span> - </span> @Convert.ToDateTime(item.End).ToString("HH:mm")
-                            }
-                        </h5>
-                    </div>
-                    <div class="event-title">
-                        <p>@item.Title</p>
-                    </div>
-                    <div class="delete-button">@Html.ActionLink("Usuń", "Delete", "Home", new { eventId = item.Id, returnUrl = $"/day/{Model.FullDate.ToString("MM-dd-yyyy")}" })</div>
-                </div>
-                @if (item.Description != null)
-                {
-                    <div class="description">
-                        <p>@item.Description</p>
-                    </div>
-                }
-
-            </div>
-        }
+        <div class="hours">
+            Godziny:
+            <input asp-for="@Model.newEvent.Start" type="time" value="12:00" class="input input-hours" />
+            <span> - </span>
+            <input asp-for="@Model.newEvent.End" type="time" value="13:00" class="input input-hours" />
+        </div>
+        <input type="submit" class="button" value="Dodaj wydarzenie" />
     </div>
-}
+</form>
+<div>
 
-else
-{
-    <h2>Nie masz żadnych wydarzeń na ten dzień</h2>
+</div>
+<div class="wrapper">
+    <ul>
+        @foreach(var e in Model.Events)
+        {
+            <li>
+                <span></span>
+                <div>
+                    <div class="title">@e.Title</div>
+                    <div class="description">@e.Description</div>
+                </div>
+                <span class="number">
+                    <span>@e.Start.ToString("HH:mm")</span>
+                    <span>@e.End?.ToString("HH:mm")</span>
+                </span>
+            </li>
 
-
-
-}
+        }
+    </ul>
+</div>
 

@@ -12,6 +12,8 @@ namespace BetterCalendar.Models
         public int DayNumber { get; set; }
         public string MonthNameDop { get; set; }
 
+        public CreateEventViewModel newEvent { get; set; }
+
         public List<EventViewModel> Events { get; set; }
     }
 }

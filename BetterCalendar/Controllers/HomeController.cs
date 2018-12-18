@@ -133,21 +133,21 @@ namespace BetterCalendar.Controllers
 
             return View(model);
         }
-
-        [Route("day/{date}/new-event")]
-        public IActionResult CreateEvent()
-        {
-            return View();
-        }
+        //[HttpGet]
+        //[Route("day/{date}/new-event")]
+        //public IActionResult CreateEvent()
+        //{
+        //    return View();
+        //}
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("day/{date}/new-event")]
-        public async Task<IActionResult> CreateEvent(CreateEventViewModel model, DateTime date)
+        public async Task<IActionResult> CreateEvent(DayViewModel model, DateTime date)
         {
             if (ModelState.IsValid)
             {
-                var EndDate = Convert.ToDateTime(model.End);
+                var EndDate = Convert.ToDateTime(model.newEvent.End);
 
                 // Constructs date of the end of the event
                 // (user input is only hours and minutes, rest od DateTime is deafult, so we take it from route)
@@ -155,7 +155,7 @@ namespace BetterCalendar.Controllers
                 // if model.End is null then set end of the event to null 
                 // otherwise take day, month and year from route
                 // hours and minutes from user input, and seconds is always 0
-                DateTime? eventEnd = model.End == null ? null : new DateTime?(
+                DateTime? eventEnd = model.newEvent.End == null ? null : new DateTime?(
                         new DateTime(date.Year, date.Month, date.Day, EndDate.Hour, EndDate.Minute, 0)
                     );
 
@@ -163,9 +163,9 @@ namespace BetterCalendar.Controllers
                 var newEvent = new Event
                 {
                     Date = date,
-                    Title = model.Title,
-                    Description = model.Description,
-                    Start = new DateTime(date.Year, date.Month, date.Day, model.Start.Hour, model.Start.Minute, 0),
+                    Title = model.newEvent.Title,
+                    Description = model.newEvent.Description,
+                    Start = new DateTime(date.Year, date.Month, date.Day, model.newEvent.Start.Hour, model.newEvent.Start.Minute, 0),
                     End = eventEnd,
                     User = await userManager.FindByIdAsync(userId)
                 };

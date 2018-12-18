@@ -1,6 +1,8 @@
 ﻿@model BetterCalendar.Models.MonthViewModel
 
-
+@{
+    ViewData["todayStyle"] = "color: #FF5252";
+}
 
 
 
@@ -56,8 +58,6 @@
     @* render days*@
     @foreach (var day in Model.Days)
     {
-
-
         @if (day.FullDate.ToShortDateString() == DateTime.Now.ToShortDateString())
         {
             <a asp-action="Day" asp-controller="Home" asp-route-date="@day.FullDate.ToString("MM-dd-yyyy")">
@@ -82,10 +82,5 @@
             </a>
 
         }
-
-
-
-
-
     }
 </div>
