@@ -11,8 +11,5 @@ namespace BetterCalendar.Models
         public string Name { get; set; }
         public int DayNumber { get; set; }
         public bool HasEvents { get; set; }
-
-
-       
     }
 }

@@ -8,45 +8,62 @@
     <h4>@Model.DayNumber @Model.MonthNameDop</h4>
 </div>
 
-<form asp-action="CreateEvent" asp-controller="Home" method="post">
-    @Html.AntiForgeryToken()
-    <div class="form-wrapper">
-        <div class="form-group">
-            <input asp-for="@Model.newEvent.Title" placeholder="Dodaj tytuł" class="input" />
-        </div>
-        <div class="form-group">
-            <input asp-for="@Model.newEvent.Title" placeholder="Opis (opcjonalnie)" class="input" />
-        </div>
 
-        <div class="hours">
-            Godziny:
-            <input asp-for="@Model.newEvent.Start" type="time" value="12:00" class="input input-hours" />
-            <span> - </span>
-            <input asp-for="@Model.newEvent.End" type="time" value="13:00" class="input input-hours" />
-        </div>
-        <input type="submit" class="button" value="Dodaj wydarzenie" />
-    </div>
-</form>
-<div>
-
-</div>
 <div class="wrapper">
-    <ul>
-        @foreach(var e in Model.Events)
-        {
-            <li>
-                <span></span>
-                <div>
-                    <div class="title">@e.Title</div>
-                    <div class="description">@e.Description</div>
-                </div>
-                <span class="number">
-                    <span>@e.Start.ToString("HH:mm")</span>
-                    <span>@e.End?.ToString("HH:mm")</span>
-                </span>
-            </li>
+    @if(Model.Events.Count > 0)
+    {
+        <div class="timeline">
+            <ul>
+                @foreach (var e in Model.Events)
+                {
+                    <li>
+                        <span></span>
+                        <div>
+                            <div class="title">@e.Title</div>
+                            <div class="description">@e.Description</div>
+                        </div>
+                        <span class="number">
+                            <span>@e.Start.ToString("HH:mm")</span>
+                            <span>@e.End?.ToString("HH:mm")</span>
+                        </span>
+                    </li>
 
-        }
-    </ul>
+                }
+            </ul>
+        </div>
+    }
+    <div class="form-wrapper">
+        <h3>Dodaj nowe wydarzenie</h3>
+        <form asp-action="CreateEvent" asp-controller="Home" method="post">
+            @Html.AntiForgeryToken()
+
+            @Html.HiddenFor(x => x.FullDate)
+            @Html.HiddenFor(x => x.DayName)
+            @Html.HiddenFor(x => x.DayNumber)
+            @Html.HiddenFor(x => x.MonthNameDop)
+
+            <div asp-validation-summary="All"></div>
+
+            <div class="form-group">
+                <input asp-for="@Model.newEvent.Title" placeholder="Dodaj tytuł" class="input-event" />
+            </div>
+            <div class="form-group">
+                <input asp-for="@Model.newEvent.Description" placeholder="Opis (opcjonalnie)" class="input-event" />
+            </div>
+
+            <label>od: </label>
+            <div class="hours">
+                <input asp-for="@Model.newEvent.Start" type="time" value="12:00" class="input-hours" />
+            </div>
+
+            <label>do: </label>
+            <div class="hours">
+                <input asp-for="@Model.newEvent.End" type="time" value="13:00" class="input-hours" />
+            </div><br />
+
+            <input type="submit" class="button" value="Dodaj wydarzenie" />
+
+        </form>
+    </div>
 </div>
 

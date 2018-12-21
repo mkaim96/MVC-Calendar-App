@@ -6,6 +6,7 @@ using BetterCalendar.Data;
 using BetterCalendar.Models;
 using BetterCalendar.services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -133,29 +134,45 @@ namespace BetterCalendar.Controllers
 
             return View(model);
         }
-        //[HttpGet]
-        //[Route("day/{date}/new-event")]
-        //public IActionResult CreateEvent()
-        //{
-        //    return View();
-        //}
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("day/{date}/new-event")]
         public async Task<IActionResult> CreateEvent(DayViewModel model, DateTime date)
         {
+
+            // Can't pass list of Events with form so we have find events again.
+            // The rest of DayViewModel is passed with form
+
+
+            // find users events for given date
+            var events = context.Events.Where(a => a.Date == date && a.User.Id == GetCurrentUserId());
+
+            // map events to EventViewModel 
+            var eventsViewModel = events.Select(a => new EventViewModel
+            {
+                Id = a.Id,
+                Description = a.Description,
+                End = a.End,
+                Start = a.Start,
+                Title = a.Title
+            }).ToList();
+
+            // assign events to model
+            model.Events = eventsViewModel;
+
             if (ModelState.IsValid)
             {
-                var EndDate = Convert.ToDateTime(model.newEvent.End);
 
                 // Constructs date of the end of the event
-                // (user input is only hours and minutes, rest od DateTime is deafult, so we take it from route)
+                // (user input is only hours and minutes, rest od DateTime is Now, so we take it from route)
                 //
                 // if model.End is null then set end of the event to null 
                 // otherwise take day, month and year from route
                 // hours and minutes from user input, and seconds is always 0
-                DateTime? eventEnd = model.newEvent.End == null ? null : new DateTime?(
+                var EndDate = Convert.ToDateTime(model.newEvent.End);
+
+                DateTime? endOfEvent = model.newEvent.End == null ? null : new DateTime?(
                         new DateTime(date.Year, date.Month, date.Day, EndDate.Hour, EndDate.Minute, 0)
                     );
 
@@ -166,7 +183,7 @@ namespace BetterCalendar.Controllers
                     Title = model.newEvent.Title,
                     Description = model.newEvent.Description,
                     Start = new DateTime(date.Year, date.Month, date.Day, model.newEvent.Start.Hour, model.newEvent.Start.Minute, 0),
-                    End = eventEnd,
+                    End = endOfEvent,
                     User = await userManager.FindByIdAsync(userId)
                 };
 
@@ -175,7 +192,7 @@ namespace BetterCalendar.Controllers
 
                 return RedirectToAction("Day");
             }
-            return View(model);
+            return View("Day", model);
         }
 
         [Route("delete")]
