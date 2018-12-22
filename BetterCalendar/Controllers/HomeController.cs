@@ -56,11 +56,13 @@ namespace BetterCalendar.Controllers
             };
 
             return View(model);
+
         }
-        
+
         [Route("previous-month")]
         public IActionResult PrevMonth(DateTime date)
         {
+
             var userId = GetCurrentUserId();
             date = date.AddMonths(-1);
 

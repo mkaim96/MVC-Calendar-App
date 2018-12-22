@@ -2,15 +2,55 @@
 @{
     ViewData["Title"] = "Day";
 }
+<div id="app">
+    <div v-if="modalOpened" v-on:click="closeModal($event)" id="overlay">
+        <div id="modal">
+            <div id="close-modal-button" v-on:click="closeModal">
+                &times;
+            </div>
+            <div class="form-wrapper">
+                <h3>Dodaj nowe wydarzenie</h3>
+                <form asp-action="CreateEvent" asp-controller="Home" method="post">
+                    @Html.AntiForgeryToken()
 
-<div class="big-date">
-    <h2>@Model.DayName,</h2>
-    <h4>@Model.DayNumber @Model.MonthNameDop</h4>
-</div>
+                    @Html.HiddenFor(x => x.FullDate)
+                    @Html.HiddenFor(x => x.DayName)
+                    @Html.HiddenFor(x => x.DayNumber)
+                    @Html.HiddenFor(x => x.MonthNameDop)
 
+                    <div asp-validation-summary="All"></div>
 
-<div class="wrapper">
-    @if(Model.Events.Count > 0)
+                    <div class="form-group">
+                        <input asp-for="@Model.newEvent.Title" placeholder="Dodaj tytuł" class="input-event" />
+                    </div>
+                    <div class="form-group">
+                        <input asp-for="@Model.newEvent.Description" placeholder="Opis (opcjonalnie)" class="input-event" />
+                    </div>
+
+                    <label>od: </label>
+                    <div class="hours">
+                        <input asp-for="@Model.newEvent.Start" type="time" value="12:00" class="input-hours" />
+                    </div>
+
+                    <label>do: </label>
+                    <div class="hours">
+                        <input asp-for="@Model.newEvent.End" type="time" value="13:00" class="input-hours" />
+                    </div><br />
+
+                    <input type="submit" class="button" value="Zapisz" />
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="big-date">
+        <h2>@Model.DayName,</h2>
+        <h4>@Model.DayNumber @Model.MonthNameDop</h4>
+    </div>
+
+    <button v-on:click="openModal" class="button">Dodaj wydarzenie</button>
+    @if (Model.Events.Count > 0)
     {
         <div class="timeline">
             <ul>
@@ -32,38 +72,7 @@
             </ul>
         </div>
     }
-    <div class="form-wrapper">
-        <h3>Dodaj nowe wydarzenie</h3>
-        <form asp-action="CreateEvent" asp-controller="Home" method="post">
-            @Html.AntiForgeryToken()
-
-            @Html.HiddenFor(x => x.FullDate)
-            @Html.HiddenFor(x => x.DayName)
-            @Html.HiddenFor(x => x.DayNumber)
-            @Html.HiddenFor(x => x.MonthNameDop)
-
-            <div asp-validation-summary="All"></div>
-
-            <div class="form-group">
-                <input asp-for="@Model.newEvent.Title" placeholder="Dodaj tytuł" class="input-event" />
-            </div>
-            <div class="form-group">
-                <input asp-for="@Model.newEvent.Description" placeholder="Opis (opcjonalnie)" class="input-event" />
-            </div>
-
-            <label>od: </label>
-            <div class="hours">
-                <input asp-for="@Model.newEvent.Start" type="time" value="12:00" class="input-hours" />
-            </div>
-
-            <label>do: </label>
-            <div class="hours">
-                <input asp-for="@Model.newEvent.End" type="time" value="13:00" class="input-hours" />
-            </div><br />
-
-            <input type="submit" class="button" value="Dodaj wydarzenie" />
-
-        </form>
-    </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="~/js/main.js"></script>

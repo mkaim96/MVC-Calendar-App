@@ -369,19 +369,13 @@ nav ul {
             top: 100%;
         }
 
-.wrapper {
-    display: flex;
-    align-content: space-between
-
-}
-
 .timeline {
     min-width: 400px;
 }
 
 .form-wrapper {
-    padding: 12px 0 0 0;
-
+    padding: 40px;
+    
 }
 
 .input-event {
@@ -390,7 +384,6 @@ nav ul {
     padding: 10px;
     font-family: inherit;
     margin-bottom: 10px;
-    border-radius: 5px 5px 0 0;
     width: 360px;
 }
 
@@ -403,7 +396,7 @@ nav ul {
     display: inline-block;
     padding: 4px;
     border-radius: 4px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     margin-left: 5px;
 }
 
@@ -411,4 +404,38 @@ nav ul {
     
     background: #BDBDBD;
     border: none;
+}
+
+#overlay {
+    position: absolute;
+    top: 0;
+    left:0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.68);
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#modal {
+    background: #fff;
+    display: flex;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    position: relative;
+}
+
+#close-modal-button {
+    font-size: 32px;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+}
+
+#close-modal-button:hover {
+    cursor: pointer;
 }
