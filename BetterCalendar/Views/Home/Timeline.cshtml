@@ -8,7 +8,9 @@
         @foreach(var d in Model.Days)
         {
             <div class="timeline-item">
-                <p class="time">@d.Date.Day @d.MonthNameShort</p>
+                <p class="time">
+                    <a asp-action="Day" asp-controller="Home" asp-route-date="@d.Date.ToString("MM-dd-yyyy")">@d.Date.Day @d.MonthNameShort</a>
+                </p>
                 <div class="content">
                     <h2 class="title">
                         @d.EventTitles.Count @d.Odmiana()

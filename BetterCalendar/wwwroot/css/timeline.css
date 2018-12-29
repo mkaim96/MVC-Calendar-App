@@ -64,6 +64,10 @@
     top: 5px;
 }
 
+.time:hover {
+    font-weight: bold;
+}
+
 .content {
     margin: 40px;
     padding-bottom: 40px;

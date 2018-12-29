@@ -122,7 +122,8 @@ namespace BetterCalendar.Controllers
                 End = a.End,
                 Start = a.Start,
                 Title = a.Title
-            }).ToList();
+            }).OrderBy(a => a.Start).ToList();
+
 
             var model = new DayViewModel
             {
