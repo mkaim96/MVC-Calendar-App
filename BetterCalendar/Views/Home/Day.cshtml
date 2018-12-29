@@ -51,24 +51,40 @@
     </div>
 
     <button v-on:click="openModal" class="button">Dodaj wydarzenie</button>
+
+
     @if (Model.Events.Count > 0)
     {
         foreach (var e in Model.Events)
         {
             <div class="event-card">
-                <p class="event-hours">@e.Start 
+                <p class="event-hours">@e.Start.ToString("HH:mm") 
                     @if(e.End != null)
                     {
-                        <span> - e.End</span>
+                        <span> - @Convert.ToDateTime(e.End).ToString("HH:mm")</span>
                     }
                 </p>
                 <div class="event-delete-button">
-                    <a asp-action="delete" asp-controller="">&times;</a>
+                    @{
+                        var routeData = new Dictionary<string, string>()
+                        {
+                            ["eventId"] = e.Id.ToString(),
+                            ["returnUrl"] = $"/day/{Model.FullDate.ToString("MM-dd-yyyy")}"
+
+                        };
+                    }
+                    
+                    <a asp-action="delete" asp-controller="Home" asp-all-route-data="@routeData">&times;</a>
+
                 </div>
-                <div class="event-title">Trening siłowy</div>
-                <div class="event-description">
-                    <p>Klata, nogi, plecy.</p>
-                </div>
+                <div class="event-title">@e.Title</div>
+                @if(e.Description != null)
+                {
+                    <div class="event-description">
+                        <p>@e.Description</p>
+                    </div>
+                }
+
             </div>
 
         }

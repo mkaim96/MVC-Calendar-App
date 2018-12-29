@@ -16,9 +16,4 @@
             }
         }
     },
-
-    mounted() {
-        console.log("Mounted")
-    }
-
 })

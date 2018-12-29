@@ -282,3 +282,45 @@ nav ul {
 #close-modal-button:hover {
     cursor: pointer;
 }
+
+/* ------------------------   EVENT CARD STYLES ----------------------------------*/
+
+.event-card {
+    margin-top: 20px;
+    max-width: 400px;
+    padding: 40px 40px 20px 0;
+    position: relative;
+    border-bottom: 1px solid #ccd1d9;
+}
+
+.event-delete-button {
+    font-size: 30px;
+    position: absolute;
+    right: 10px;
+    top: 3px;
+}
+
+    .event-delete-button:hover {
+        cursor: pointer;
+    }
+
+.event-hours {
+    margin: 0;
+    position: absolute;
+    top: 10px;
+    letter-spacing: 1px;
+    color: #434a54
+}
+
+.event-title {
+    font-size: 32px;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+    color: #3A405A
+}
+
+.event-description {
+    font-size: 15px;
+    color: #434a54;
+    margin-bottom: 20px;
+}

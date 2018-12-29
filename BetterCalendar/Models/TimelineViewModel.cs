@@ -23,21 +23,21 @@ namespace BetterCalendar.Models
             if (count == 0) return "Wydarzeń";
             if (count == 1) return "Wydarzenie";
 
-            // znajdz liczbe jednosci
-
-            int jednosci;
+            
 
             if (count >= 10)
             {
+                int jednosci;
+
                 var str = count.ToString();
                 jednosci = Convert.ToInt32(str.Substring(str.Length - 1, 1));
 
-                if (jednosci >= 4) return "Wydarzenia";
-                else return "Wydarzeń";
+                if (jednosci >= 4) return "Wydarzeń";
+                return "Wydarzenia";
             }
 
-            if (count >= 4) return "Wydarzenia";
-            else return "Wydarzeń";
+            if (count >= 4) return "Wydarzeń";
+            return "Wydarzenia";
 
 
         }
