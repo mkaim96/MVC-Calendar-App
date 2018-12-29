@@ -3,6 +3,7 @@
     ViewData["Title"] = "Day";
 }
 <div id="app">
+    <!-- modal for new event form-->
     <div v-if="modalOpened" v-on:click="closeModal($event)" id="overlay">
         <div id="modal">
             <div id="close-modal-button" v-on:click="closeModal">
@@ -52,25 +53,25 @@
     <button v-on:click="openModal" class="button">Dodaj wydarzenie</button>
     @if (Model.Events.Count > 0)
     {
-        <div class="timeline">
-            <ul>
-                @foreach (var e in Model.Events)
-                {
-                    <li>
-                        <span></span>
-                        <div>
-                            <div class="title">@e.Title</div>
-                            <div class="description">@e.Description</div>
-                        </div>
-                        <span class="number">
-                            <span>@e.Start.ToString("HH:mm")</span>
-                            <span>@e.End?.ToString("HH:mm")</span>
-                        </span>
-                    </li>
+        foreach (var e in Model.Events)
+        {
+            <div class="event-card">
+                <p class="event-hours">@e.Start 
+                    @if(e.End != null)
+                    {
+                        <span> - e.End</span>
+                    }
+                </p>
+                <div class="event-delete-button">
+                    <a asp-action="delete" asp-controller="">&times;</a>
+                </div>
+                <div class="event-title">Trening siłowy</div>
+                <div class="event-description">
+                    <p>Klata, nogi, plecy.</p>
+                </div>
+            </div>
 
-                }
-            </ul>
-        </div>
+        }
     }
 </div>
 

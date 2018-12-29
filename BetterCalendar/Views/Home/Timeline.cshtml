@@ -1,0 +1,28 @@
+﻿@model BetterCalendar.Models.TimelineViewModel
+@{
+    ViewData["Title"] = "Timeline";
+}
+
+<div class="timeline">
+    <div class="timeline-body">
+        @foreach(var d in Model.Days)
+        {
+            <div class="timeline-item">
+                <p class="time">@d.Date.Day @d.MonthNameShort</p>
+                <div class="content">
+                    <h2 class="title">
+                        @d.EventTitles.Count @d.Odmiana()
+                    </h2>
+                    <ul>
+                        @foreach(var title in d.EventTitles)
+                        {
+                            <li>@title</li>
+
+                        }
+                    </ul>
+                </div>
+            </div>
+
+        }
+    </div>
+</div>

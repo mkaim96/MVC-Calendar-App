@@ -1,8 +1,8 @@
 ﻿<nav>
     <ul>
         <li>
-            @Html.ActionLink("Kalendarz", "Index", "Home", null, new { @class = "logo" })
-            @Html.ActionLink("Wszystkie wydarzenia", "AllEvents", "Home", null, new { @class = ""})
+            <a asp-action="Index" asp-controller="Home" class="logo">Kalendarz</a>
+            <a asp-action="Timeline" asp-controller="Home">Oś czasu</a>
         </li>
     </ul>
     @Html.Partial("_login")

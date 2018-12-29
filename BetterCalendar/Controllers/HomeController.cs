@@ -167,7 +167,7 @@ namespace BetterCalendar.Controllers
             {
 
                 // Constructs date of the end of the event
-                // (user input is only hours and minutes, rest od DateTime is Now, so we take it from route)
+                // ( user input is only hours and minutes, rest od DateTime is Now, so we take it from route )
                 //
                 // if model.End is null then set end of the event to null 
                 // otherwise take day, month and year from route
@@ -211,29 +211,38 @@ namespace BetterCalendar.Controllers
             return LocalRedirect(returnUrl);
         }
 
-
-        [Route("all-events")]
-        public IActionResult AllEvents()
+        [Route("timeline")]
+        public IActionResult Timeline()
         {
-            var userId = GetCurrentUserId();
 
-            // find users events
-            var usersEvents = context.Events
-                .Where(a => a.User.Id == userId)
-                .OrderBy(a => a.Start);
+            var groups = context.Events.Where(x => x.User.Id == GetCurrentUserId())
+                .GroupBy(x => x.Date);
 
-            List<EventViewModel> model = usersEvents.Select(a => new EventViewModel
+            var days = new List<DayTimeline>();
+
+            foreach (IGrouping<DateTime, Event> group in groups)
             {
-                Id = a.Id,
-                Title = a.Title,
-                Description = a.Description,
-                End = a.End,
-                Start = a.Start
-            }).ToList();
+                var eventTitles = new List<string>();
 
+                foreach(Event e in group)
+                {
+                    eventTitles.Add(e.Title);
 
+                }
+
+                string monthName = calendarService.GetMonthName(group.Key).Substring(0, 3);
+
+                days.Add(new DayTimeline { Date = group.Key, EventTitles = eventTitles, MonthNameShort = monthName });
+            }
+
+            //days.OrderBy(x => x.Date);
+
+            var model = new TimelineViewModel { Days = days };
             return View(model);
         }
+
+
+
         #region Helpers
 
         private string GetCurrentUserId()
