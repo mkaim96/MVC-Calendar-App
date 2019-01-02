@@ -164,6 +164,17 @@ namespace BetterCalendar.Controllers
             // assign events to model
             model.Events = eventsViewModel;
 
+            // Check if end of event is after the start 
+            if(model.newEvent.End != null)
+            {
+                var result = DateTime.Compare(model.newEvent.Start, Convert.ToDateTime(model.newEvent.End)); 
+
+                if (result > 0)
+                {
+                    ModelState.AddModelError(String.Empty, "Godzina rozpoczęcia nie moze byc późniejsza niż godzina zakończenia");
+                }
+            }
+
             if (ModelState.IsValid)
             {
 
@@ -201,8 +212,7 @@ namespace BetterCalendar.Controllers
         [Route("delete")]
         public IActionResult Delete(int eventId, string returnUrl = null)
         {
-            ViewData["ReturnUrl"] = returnUrl;
-            Event e = context.Events.Find(eventId);
+            var e = context.Events.Find(eventId);
 
             if (e == null) return NotFound();
 

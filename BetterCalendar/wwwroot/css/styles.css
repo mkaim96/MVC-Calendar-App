@@ -30,6 +30,7 @@ a {
 
 .container {
     max-width: 1200px;
+    padding: 0 20px 0 20px;
     margin: 0 auto;
     
 }
@@ -110,7 +111,7 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 100px 0 100px;;
+    padding: 0 100px 0 100px;
     border-bottom: 1px solid #BDBDBD;
     margin-bottom: 60px;
     background: #fff;
@@ -265,9 +266,9 @@ nav ul {
 #modal {
     background: #fff;
     display: flex;
-    display: flex;
+    max-width: 440px;
+    margin: 0 20px 0 20px;
     justify-content: center;
-    align-items: center;
     border-radius: 10px;
     position: relative;
 }
@@ -323,4 +324,10 @@ nav ul {
     font-size: 15px;
     color: #434a54;
     margin-bottom: 20px;
+}
+
+@media (max-width: 980px) {
+    nav {
+        padding: 0 20px 0 20px;
+    }
 }

@@ -23,8 +23,6 @@ namespace BetterCalendar.Models
             if (count == 0) return "Wydarzeń";
             if (count == 1) return "Wydarzenie";
 
-            
-
             if (count >= 10)
             {
                 int jednosci;

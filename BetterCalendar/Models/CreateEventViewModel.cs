@@ -8,7 +8,7 @@ namespace BetterCalendar.Models
 {
     public class CreateEventViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Tytuł jest wymagany")]
         [Display(Name = "Tytuł")]
         public string Title { get; set; }
 
