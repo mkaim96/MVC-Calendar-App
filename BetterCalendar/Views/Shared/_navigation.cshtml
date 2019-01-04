@@ -2,8 +2,18 @@
     <ul>
         <li>
             <a asp-action="Index" asp-controller="Home" class="logo">Kalendarz</a>
+        </li>
+        <li>
             <a asp-action="Timeline" asp-controller="Home">Oś czasu</a>
         </li>
     </ul>
-    @Html.Partial("_login")
+    <ul>
+        @Html.Partial("_login")
+    </ul>
+    
+
+    <!-- Hamburger menu-->
+    <div class="menu">
+        <a class="menu-button">Menu</a>
+    </div>
 </nav>

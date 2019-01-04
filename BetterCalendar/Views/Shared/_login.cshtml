@@ -6,18 +6,13 @@
 
 @if(signInManager.IsSignedIn(User))
 {
-    <ul>
-        <li>@Html.ActionLink("Wyloguj", "Logout", "Account")</li>
-    </ul>
-    
+    <li>@Html.ActionLink("Wyloguj", "Logout", "Account")</li>
 
 }
 
 else
 {
-    <ul>
-        <li>@Html.ActionLink("Zaloguj się", "Login", "Account")</li>
-        <li>@Html.ActionLink("Zarejestruj się", "Register", "Account")</li>
-    </ul>
+    <li>@Html.ActionLink("Zaloguj się", "Login", "Account")</li>
+    <li>@Html.ActionLink("Zarejestruj się", "Register", "Account")</li>
 
 }

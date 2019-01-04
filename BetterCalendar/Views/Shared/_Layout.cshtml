@@ -12,10 +12,32 @@
 </head>
 
 <body>
+    <div>
+        <div class="menu-overlay">
+
+        </div>
+
+        <div id="menu-items">
+
+            <div id="close-menu-button">&times;</div>
+            <ul>
+                <li>
+                    <a asp-action="Index" asp-controller="Home">Kalendarz</a>
+                </li>
+                <li>
+                    <a asp-action="Timeline" asp-controller="Home">Oś czasu</a>
+                </li>
+                @Html.Partial("_login")
+            </ul>
+        </div>
+    </div>
+    
+
     @Html.Partial("_navigation")
     <div class="container">
         @RenderBody()
     </div>
+    <script src="~/js/menu.js"></script>
 </body>
 
 </html>

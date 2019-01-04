@@ -51,7 +51,7 @@ namespace BetterCalendar.services
             date = new DateTime(date.Year, date.Month, 1);
 
             // if day of week is for example 6 then we have to skip
-            // 5 days (generate 5 blank squares in html) so ...
+            // 5 days (generate 5 blank squares in html)
             // NOTE: sunday is 0 so change it to 7
             int daysToSkip = (Calendar.GetDayOfWeek(date) == 0 ? 7 : (int)Calendar.GetDayOfWeek(date)) - 1;
 
