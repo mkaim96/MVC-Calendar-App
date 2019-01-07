@@ -392,6 +392,24 @@ nav ul {
     padding: 0;
 }
 
+#app {
+}
+
+@media (max-width: 1350px) {
+    #app {
+        margin-left: 150px;
+    }
+}
+
+@media (max-width: 750px) {
+    #app {
+        margin-left: 0;
+        margin: 0 auto;
+        max-width: 480px;
+    }
+}
+
+
 @media (max-width: 980px) {
     nav {
         padding: 0 20px 0 20px;
