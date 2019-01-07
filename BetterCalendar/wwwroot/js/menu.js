@@ -27,7 +27,3 @@ menuOverlay.addEventListener("click", function (e) {
     menuItems.classList.remove("show")
     menuItems.classList.add("hide")
 })
-
-console.log(closeButton)
-console.log(menuItems)
-console.log(openButton)
