@@ -26,7 +26,7 @@ namespace BetterCalendar
         {
            
             services.AddDbContext<ApplicationDbContext>(options =>
-                    options.UseSqlServer(Environment.GetEnvironmentVariable("calendar_db")));
+                    options.UseSqlServer(Configuration.GetConnectionString("BetterCalendar_Dev")));
 
             services.AddSingleton(Configuration);
             services.AddMemoryCache();
