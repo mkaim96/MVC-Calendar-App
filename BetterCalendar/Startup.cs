@@ -1,19 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using BetterCalendar.Data;
 using BetterCalendar.services;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 
 namespace BetterCalendar
@@ -35,7 +29,6 @@ namespace BetterCalendar
                     options.UseSqlServer(Configuration.GetConnectionString("BetterCalendar_Dev")));
 
             services.AddSingleton(Configuration);
-            services.AddTransient<EventsService>();
             services.AddMemoryCache();
             services.AddCors();
 
