@@ -3,9 +3,9 @@
     ViewData["Title"] = "Login";
 }
 <p>
-    @if(@Environment.GetEnvironmentVariable("calendar_db") != null)
+    @if(@Environment.GetEnvironmentVariable("SQLCONNSTR_calendar_db") != null)
     {
-        <h2>@Environment.GetEnvironmentVariable("calendar_db");</h2>
+        <h2>@Environment.GetEnvironmentVariable("SQLCONNSTR_calendar_db");</h2>
     } else
     {
         <p>jest nulem xd</p>
