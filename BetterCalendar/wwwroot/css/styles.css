@@ -151,7 +151,8 @@ nav ul {
 }
 
 .label {
-    display: block;
+    display: inline-block;
+    margin-right: 10px;
     margin-bottom: 5px;
 }
 
@@ -170,6 +171,7 @@ nav ul {
     transition-property: border-bottom;
     transition-duration: 200ms;
     transition-timing-function: ease-in;
+    margin-bottom: 10px;
 }
 
     .input:focus {

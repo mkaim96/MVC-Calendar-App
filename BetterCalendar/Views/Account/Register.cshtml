@@ -8,7 +8,7 @@
 
         @Html.AntiForgeryToken()
 
-        <h4 class="header">Utwórz nowe konto</h4>
+        <h4>Utwórz nowe konto</h4>
 
         <div asp-validation-summary="All"></div>
 
@@ -18,9 +18,9 @@
         </div>
 
         <div class="form-group">
-            <label asp-for="UserName" class="label"></label>
+            <label asp-for="UserName" class="label"></label><span class="info">Opcjonalne</span>
             <input type="text" asp-for="UserName" class="input" />
-            <p class="info">Opcjonalne</p>
+            
         </div>
 
         <div class="form-group">
