@@ -4,7 +4,7 @@
 }
 <div id="app">
     <!-- modal for new event form-->
-    <div v-if="modalOpened" v-on:click="closeModal($event)" id="overlay">
+    <div v-if="modalOpened" v-on:click="closeModal($event)" id="overlay" v-cloak>
         <div id="modal">
             <div id="close-modal-button" v-on:click="closeModal">
                 &times;
